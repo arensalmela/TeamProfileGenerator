@@ -10,6 +10,84 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const teamArray = [];
+
+function app() {
+  function manager() {
+    console.log("Please build your team");
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "What is the name of your manager?",
+          name: "ManagerName",
+        },
+
+        {
+          type: "input",
+          message: "What is your id number?",
+          name: "ManagerId",
+        },
+
+        {
+          type: "input",
+          message: "What is your email address?",
+          name: "ManagerEmail",
+        },
+
+        {
+          type: "input",
+          message: "What is your office number?",
+          name: "ManagerOfficeNum",
+        },
+      ])
+      .then((responses) => {
+        const manager = new Manager(
+          responses.ManagerName,
+          responses.ManagerId,
+          responses.ManagerEmail,
+          response.ManagerOfficeNum
+        );
+
+        teamArray.push(manager);
+        createTeamMember();
+      });
+  }
+
+  function createTeamMember() {
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          message: "What type of team member would you like to add?",
+          name: "NewTeamMember",
+          choices: ["Engineer", "Intern"],
+        },
+      ])
+      .then((userResponse) => {
+        switch (userResponse.NewTeamMember) {
+          case "Engineer":
+            addEngineer();
+            break;
+          case "Intern":
+            addIntern();
+            break;
+          default:
+            buildTeam();
+        }
+      });
+  }
+
+  function buildTeam() {
+    if (!fs.existsSync(OUTPUT_DIR)) {
+      fs.mkdirSync(OUTPUT_DIR);
+    }
+
+    fs.writeFileSync(outputPath, render(teamArray), "utf-8");
+  }
+}
+
+app();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
