@@ -111,3 +111,85 @@ app();
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+function engineer() {
+  //console.log("Please build your team");
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is the name of your software engineer?",
+        name: "EngineerName",
+      },
+
+      {
+        type: "input",
+        message: "What is your id number?",
+        name: "EngineerId",
+      },
+
+      {
+        type: "input",
+        message: "What is your email address?",
+        name: "EngineerEmail",
+      },
+
+      {
+        type: "input",
+        message: "What is your Github username?",
+        name: "GithubUsername",
+      },
+    ])
+    .then((responses) => {
+      const engineer = new Engineer(
+        responses.EngineerName,
+        responses.EngineerId,
+        responses.EngineerEmail,
+        response.GithubUsername
+      );
+
+      teamArray.push(engineer);
+      createTeamMember();
+    });
+}
+
+function intern() {
+  //console.log("Please build your team");
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is the name of your intern?",
+        name: "InternName",
+      },
+
+      {
+        type: "input",
+        message: "What is your id number?",
+        name: "ManagerId",
+      },
+
+      {
+        type: "input",
+        message: "What is your email address?",
+        name: "InternEmail",
+      },
+
+      {
+        type: "input",
+        message: "Where do you go to school?",
+        name: "InternSchool",
+      },
+    ])
+    .then((responses) => {
+      const intern = new Intern(
+        responses.InternName,
+        responses.InternId,
+        responses.InternEmail,
+        response.InternSchool
+      );
+
+      teamArray.push(intern);
+      createTeamMember();
+    });
+}
