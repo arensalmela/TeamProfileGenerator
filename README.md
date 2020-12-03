@@ -1,6 +1,6 @@
 # TeamProfileGenerator
 
-## Walkthrough Video
+## Walkthrough Video https://drive.google.com/file/d/1ref8Cg8kmGbzj8Es_81-CHA3mpY4k06P/view?usp=sharing
 
 ## Git Hub Repository https://github.com/arensalmela/TeamProfileGenerator
 
@@ -24,3 +24,5 @@
 - GitHub repository with a unique name and a README describing the project.
 - User can use the CLI to generate an HTML page that displays information about their team.
 - All tests must pass.
+
+![Screenshot of generated HTML](Develop/assets/teamprofile.png)
