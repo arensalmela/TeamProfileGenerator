@@ -21,24 +21,51 @@ function app() {
           type: "input",
           message: "What is the name of your manager?",
           name: "ManagerName",
+          validate: (response) => {
+            if (response != "") {
+              return true;
+            }
+            return "Please enter at least one character";
+          },
         },
 
         {
           type: "input",
           message: "What is your id number?",
           name: "ManagerId",
+          validate: (response) => {
+            var pass = response.match(/^[1-9]\d*$/);
+            if (pass) {
+              return true;
+            }
+            return "Please enter numbers";
+          },
         },
 
         {
           type: "input",
           message: "What is your email address?",
           name: "ManagerEmail",
+          validate: (response) => {
+            var pass = response.match(/\S+@\S+\.\S+/);
+            if (pass) {
+              return true;
+            }
+            return "Please enter a valid email";
+          },
         },
 
         {
           type: "input",
           message: "What is your office number?",
           name: "ManagerOfficeNum",
+          validate: (response) => {
+            var pass = response.match(/^[1-9]\d*$/);
+            if (pass) {
+              return true;
+            }
+            return "Please enter numbers";
+          },
         },
       ])
       .then((responses) => {
@@ -46,7 +73,7 @@ function app() {
           responses.ManagerName,
           responses.ManagerId,
           responses.ManagerEmail,
-          response.ManagerOfficeNum
+          responses.ManagerOfficeNum
         );
 
         teamArray.push(manager);
@@ -61,7 +88,7 @@ function app() {
           type: "list",
           message: "What type of team member would you like to add?",
           name: "NewTeamMember",
-          choices: ["Engineer", "Intern"],
+          choices: ["Engineer", "Intern", "There are no more team members"],
         },
       ])
       .then((userResponse) => {
@@ -85,6 +112,101 @@ function app() {
 
     fs.writeFileSync(outputPath, render(teamArray), "utf-8");
   }
+
+  function addEngineer() {
+    //console.log("Please build your team");
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "What is the name of your software engineer?",
+          name: "EngineerName",
+        },
+
+        {
+          type: "input",
+          message: "What is your id number?",
+          name: "EngineerId",
+        },
+
+        {
+          type: "input",
+          message: "What is your email address?",
+          name: "EngineerEmail",
+        },
+
+        {
+          type: "input",
+          message: "What is your Github username?",
+          name: "GithubUsername",
+          validate: (response) => {
+            if (response != "") {
+              return true;
+            }
+            return "Please enter at least one character";
+          },
+        },
+      ])
+      .then((responses) => {
+        const engineer = new Engineer(
+          responses.EngineerName,
+          responses.EngineerId,
+          responses.EngineerEmail,
+          responses.GithubUsername
+        );
+
+        teamArray.push(engineer);
+        createTeamMember();
+      });
+  }
+
+  function addIntern() {
+    //console.log("Please build your team");
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "What is the name of your intern?",
+          name: "InternName",
+        },
+
+        {
+          type: "input",
+          message: "What is your id number?",
+          name: "ManagerId",
+        },
+
+        {
+          type: "input",
+          message: "What is your email address?",
+          name: "InternEmail",
+        },
+
+        {
+          type: "input",
+          message: "Where do you go to school?",
+          name: "InternSchool",
+          validate: (response) => {
+            if (response != "") {
+              return true;
+            }
+            return "Please enter at least one character";
+          },
+        },
+      ])
+      .then((responses) => {
+        const intern = new Intern(
+          responses.InternName,
+          responses.InternId,
+          responses.InternEmail,
+          responses.InternSchool
+        );
+
+        teamArray.push(intern);
+        createTeamMember();
+      });
+  }
+  manager();
 }
 
 app();
@@ -111,85 +233,3 @@ app();
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
-
-function engineer() {
-  //console.log("Please build your team");
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        message: "What is the name of your software engineer?",
-        name: "EngineerName",
-      },
-
-      {
-        type: "input",
-        message: "What is your id number?",
-        name: "EngineerId",
-      },
-
-      {
-        type: "input",
-        message: "What is your email address?",
-        name: "EngineerEmail",
-      },
-
-      {
-        type: "input",
-        message: "What is your Github username?",
-        name: "GithubUsername",
-      },
-    ])
-    .then((responses) => {
-      const engineer = new Engineer(
-        responses.EngineerName,
-        responses.EngineerId,
-        responses.EngineerEmail,
-        response.GithubUsername
-      );
-
-      teamArray.push(engineer);
-      createTeamMember();
-    });
-}
-
-function intern() {
-  //console.log("Please build your team");
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        message: "What is the name of your intern?",
-        name: "InternName",
-      },
-
-      {
-        type: "input",
-        message: "What is your id number?",
-        name: "ManagerId",
-      },
-
-      {
-        type: "input",
-        message: "What is your email address?",
-        name: "InternEmail",
-      },
-
-      {
-        type: "input",
-        message: "Where do you go to school?",
-        name: "InternSchool",
-      },
-    ])
-    .then((responses) => {
-      const intern = new Intern(
-        responses.InternName,
-        responses.InternId,
-        responses.InternEmail,
-        response.InternSchool
-      );
-
-      teamArray.push(intern);
-      createTeamMember();
-    });
-}
