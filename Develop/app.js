@@ -1,3 +1,5 @@
+//Global variables
+
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -114,25 +116,44 @@ function app() {
   }
 
   function addEngineer() {
-    //console.log("Please build your team");
     inquirer
       .prompt([
         {
           type: "input",
           message: "What is the name of your software engineer?",
           name: "EngineerName",
+          validate: (response) => {
+            if (response != "") {
+              return true;
+            }
+            return "Please enter at least one character";
+          },
         },
 
         {
           type: "input",
           message: "What is your id number?",
           name: "EngineerId",
+          validate: (response) => {
+            var pass = response.match(/^[1-9]\d*$/);
+            if (pass) {
+              return true;
+            }
+            return "Please enter numbers";
+          },
         },
 
         {
           type: "input",
           message: "What is your email address?",
           name: "EngineerEmail",
+          validate: (response) => {
+            var pass = response.match(/\S+@\S+\.\S+/);
+            if (pass) {
+              return true;
+            }
+            return "Please enter a valid email";
+          },
         },
 
         {
@@ -161,25 +182,44 @@ function app() {
   }
 
   function addIntern() {
-    //console.log("Please build your team");
     inquirer
       .prompt([
         {
           type: "input",
           message: "What is the name of your intern?",
           name: "InternName",
+          validate: (response) => {
+            if (response != "") {
+              return true;
+            }
+            return "Please enter at least one character";
+          },
         },
 
         {
           type: "input",
           message: "What is your id number?",
           name: "ManagerId",
+          validate: (response) => {
+            var pass = response.match(/^[1-9]\d*$/);
+            if (pass) {
+              return true;
+            }
+            return "Please enter numbers";
+          },
         },
 
         {
           type: "input",
           message: "What is your email address?",
           name: "InternEmail",
+          validate: (response) => {
+            var pass = response.match(/\S+@\S+\.\S+/);
+            if (pass) {
+              return true;
+            }
+            return "Please enter a valid email";
+          },
         },
 
         {
