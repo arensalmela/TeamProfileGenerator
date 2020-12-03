@@ -199,7 +199,7 @@ function app() {
         {
           type: "input",
           message: "What is your id number?",
-          name: "ManagerId",
+          name: "InternId",
           validate: (response) => {
             var pass = response.match(/^[1-9]\d*$/);
             if (pass) {
